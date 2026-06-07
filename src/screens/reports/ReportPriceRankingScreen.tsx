@@ -1,0 +1,101 @@
+import React from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { Colors } from '../../theme/colors';
+import { mockOrders, mockPrices } from '../../lib/mockData';
+
+const MEDALS = ['🥇', '🥈', '🥉'];
+
+export function ReportPriceRankingScreen({ navigation }: any) {
+  const terminated = mockOrders.filter(o => o.status === 'terminee');
+
+  const ranking = mockPrices.map(price => {
+    const items = terminated.flatMap(o => o.items ?? []).filter(i => i.unit_price === price.amount);
+    const qty = items.reduce((s, i) => s + i.quantity, 0);
+    const revenue = qty * price.amount;
+    return { price, qty, revenue };
+  }).sort((a, b) => b.qty - a.qty);
+
+  const maxQty = Math.max(...ranking.map(r => r.qty), 1);
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Ionicons name="arrow-back" size={22} color={Colors.textPrimary} />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>Classement des prix</Text>
+        <View style={{ width: 22 }} />
+      </View>
+
+      <ScrollView contentContainerStyle={styles.content}>
+        <Text style={styles.subtitle}>Poissons les plus vendus par tarif</Text>
+
+        {ranking.map((item, index) => (
+          <View key={item.price.id} style={[styles.rankCard, index === 0 && styles.rankCardFirst]}>
+            <Text style={styles.medal}>{MEDALS[index] ?? `${index + 1}.`}</Text>
+            <View style={styles.rankInfo}>
+              <Text style={styles.rankPrice}>{item.price.amount.toLocaleString('fr-FR')} FCFA</Text>
+              <View style={styles.barContainer}>
+                <View style={[styles.bar, {
+                  width: `${(item.qty / maxQty) * 100}%`,
+                  backgroundColor: index === 0 ? Colors.orange : index === 1 ? Colors.green : Colors.textSecondary,
+                }]} />
+              </View>
+              <Text style={styles.rankRevenue}>{item.revenue.toLocaleString('fr-FR')} FCFA générés</Text>
+            </View>
+            <View style={styles.rankCount}>
+              <Text style={styles.rankQty}>{item.qty}</Text>
+              <Text style={styles.rankQtyLabel}>vendus</Text>
+            </View>
+          </View>
+        ))}
+
+        {/* Summary */}
+        <View style={styles.summaryCard}>
+          <Text style={styles.summaryTitle}>Total général</Text>
+          <Text style={styles.summaryValue}>
+            {ranking.reduce((s, r) => s + r.revenue, 0).toLocaleString('fr-FR')} FCFA
+          </Text>
+          <Text style={styles.summaryLabel}>
+            {ranking.reduce((s, r) => s + r.qty, 0)} poissons vendus au total
+          </Text>
+        </View>
+      </ScrollView>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: Colors.bg },
+  header: {
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+    padding: 20, paddingTop: 56, backgroundColor: Colors.bgCard,
+    borderBottomWidth: 1, borderBottomColor: Colors.border,
+  },
+  headerTitle: { fontSize: 16, fontWeight: '700', color: Colors.textPrimary },
+  content: { padding: 20, gap: 12, paddingBottom: 80 },
+  subtitle: { fontSize: 14, color: Colors.textSecondary, marginBottom: 4 },
+  rankCard: {
+    flexDirection: 'row', alignItems: 'center', gap: 14,
+    backgroundColor: Colors.bgCard, borderRadius: 14, padding: 16,
+    borderWidth: 1, borderColor: Colors.border,
+  },
+  rankCardFirst: { borderColor: Colors.orange + '66', backgroundColor: Colors.orange + '0A' },
+  medal: { fontSize: 24, width: 32, textAlign: 'center' },
+  rankInfo: { flex: 1, gap: 6 },
+  rankPrice: { fontSize: 17, fontWeight: '800', color: Colors.textPrimary },
+  barContainer: { height: 6, backgroundColor: Colors.bgInput, borderRadius: 3, overflow: 'hidden' },
+  bar: { height: 6, borderRadius: 3 },
+  rankRevenue: { fontSize: 11, color: Colors.textMuted },
+  rankCount: { alignItems: 'center' },
+  rankQty: { fontSize: 26, fontWeight: '900', color: Colors.orange },
+  rankQtyLabel: { fontSize: 11, color: Colors.textMuted },
+  summaryCard: {
+    backgroundColor: Colors.bgCard, borderRadius: 14, padding: 20,
+    alignItems: 'center', borderWidth: 1, borderColor: Colors.border, gap: 6, marginTop: 8,
+  },
+  summaryTitle: { fontSize: 13, color: Colors.textMuted, textTransform: 'uppercase', letterSpacing: 1 },
+  summaryValue: { fontSize: 28, fontWeight: '900', color: Colors.orange },
+  summaryLabel: { fontSize: 13, color: Colors.textSecondary },
+});
