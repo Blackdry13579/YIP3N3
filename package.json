@@ -6,7 +6,9 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "graphify": "C:\\Users\\angen\\AppData\\Roaming\\Python\\Python314\\Scripts\\graphify.EXE",
+    "graphify:update": "C:\\Users\\angen\\AppData\\Roaming\\Python\\Python314\\Scripts\\graphify.EXE update ."
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",

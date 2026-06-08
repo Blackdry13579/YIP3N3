@@ -10,3 +10,17 @@ build/
 ios/
 android/
 web-build/
+# Claude Code & Codex
+.claude/
+.codex/
+CLAUDE.md
+AGENTS.md
+graphify-out/
+graphify.cmd
+markmap.svg
+
+# Artefacts navigateur
+Logo restaurant poisson YIP3NE_files/
+
+# Divers
+no/

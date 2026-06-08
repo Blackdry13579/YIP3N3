@@ -1,15 +1,27 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import {
+  View, Text, StyleSheet, ScrollView, TouchableOpacity,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../theme/colors';
-import { Button } from '../../components/Button';
 import { Order } from '../../lib/supabase';
+import { BrandLogo } from '../../components/BrandLogo';
 
 function formatDateTime(iso: string) {
-  return new Date(iso).toLocaleString('fr-FR', {
-    day: '2-digit', month: '2-digit', year: 'numeric',
-    hour: '2-digit', minute: '2-digit',
-  });
+  const d = new Date(iso);
+  const date = d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  const time = d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  return `${date} à ${time}`;
+}
+
+function Dashes() {
+  return (
+    <View style={styles.dashes}>
+      {Array.from({ length: 30 }).map((_, i) => (
+        <View key={i} style={styles.dash} />
+      ))}
+    </View>
+  );
 }
 
 export function ReceiptScreen({ navigation, route }: any) {
@@ -17,61 +29,64 @@ export function ReceiptScreen({ navigation, route }: any) {
 
   return (
     <View style={styles.container}>
+      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back" size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Reçu client</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('ShareReceipt', { order })}>
-          <Ionicons name="share-outline" size={22} color={Colors.orange} />
-        </TouchableOpacity>
+        <Text style={styles.headerTitle}>Reçu de commande</Text>
+        <View style={{ width: 22 }} />
       </View>
 
-      <ScrollView contentContainerStyle={styles.scroll}>
-        {/* Receipt card */}
-        <View style={styles.receipt}>
-          {/* Logo area */}
-          <View style={styles.receiptHeader}>
-            <Text style={styles.receiptLogo}>YIP<Text style={styles.logoOrange}>3</Text>N<Text style={styles.logoOrange}>3</Text></Text>
-            <Text style={styles.receiptTagline}>LE GOÛT AUTHENTIQUE DU POISSON BRAISÉ</Text>
-            <View style={styles.receiptDivider} />
+      <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
+        {/* Ticket card */}
+        <View style={styles.ticket}>
+          {/* Logo */}
+          <View style={styles.logoArea}>
+            <BrandLogo size="medium" />
           </View>
 
-          {/* Reference */}
-          <View style={styles.refRow}>
-            <Text style={styles.receiptLabel}>Référence</Text>
-            <Text style={styles.receiptRef}>{order.reference}</Text>
-          </View>
-          <View style={styles.refRow}>
-            <Text style={styles.receiptLabel}>Date</Text>
-            <Text style={styles.receiptValue}>{formatDateTime(order.created_at)}</Text>
-          </View>
-          {order.client_phone && (
-            <View style={styles.refRow}>
-              <Text style={styles.receiptLabel}>Téléphone</Text>
-              <Text style={styles.receiptValue}>{order.client_phone}</Text>
+          <Dashes />
+
+          {/* Commande & Date */}
+          <View style={styles.metaBlock}>
+            <View style={styles.metaRow}>
+              <Text style={styles.metaLabel}>Commande :</Text>
+              <Text style={styles.metaRef}>{order.reference}</Text>
             </View>
-          )}
+            <View style={styles.metaRow}>
+              <Text style={styles.metaLabel}>Date :</Text>
+              <Text style={styles.metaValue}>{formatDateTime(order.created_at)}</Text>
+            </View>
+          </View>
 
-          <View style={styles.receiptDivider} />
+          <Dashes />
+
+          {/* Table header */}
+          <View style={styles.tableHeader}>
+            <Text style={[styles.colH, { flex: 2 }]}>Produit</Text>
+            <Text style={[styles.colH, styles.colCenter]}>Qté</Text>
+            <Text style={[styles.colH, styles.colCenter]}>Prix</Text>
+            <Text style={[styles.colH, styles.colRight]}>Total</Text>
+          </View>
 
           {/* Items */}
-          <View style={styles.itemsHeader}>
-            <Text style={styles.colLabel}>Article</Text>
-            <Text style={styles.colLabel}>Qté</Text>
-            <Text style={styles.colLabel}>Prix</Text>
-            <Text style={styles.colLabel}>Total</Text>
-          </View>
           {(order.items ?? []).map((item, i) => (
-            <View key={i} style={styles.itemRow}>
-              <Text style={styles.itemName}>Poisson braisé</Text>
-              <Text style={styles.itemVal}>{item.quantity}</Text>
-              <Text style={styles.itemVal}>{item.unit_price.toLocaleString('fr-FR')}</Text>
-              <Text style={styles.itemVal}>{item.line_total.toLocaleString('fr-FR')}</Text>
+            <View key={i} style={styles.tableRow}>
+              <Text style={[styles.colV, { flex: 2 }]}>
+                {item.unit_price.toLocaleString('fr-FR')} FCFA
+              </Text>
+              <Text style={[styles.colV, styles.colCenter]}>{item.quantity}</Text>
+              <Text style={[styles.colV, styles.colCenter]}>
+                {item.unit_price.toLocaleString('fr-FR')}
+              </Text>
+              <Text style={[styles.colV, styles.colRight]}>
+                {item.line_total.toLocaleString('fr-FR')}
+              </Text>
             </View>
           ))}
 
-          <View style={styles.receiptDivider} />
+          <Dashes />
 
           {/* Total */}
           <View style={styles.totalRow}>
@@ -79,17 +94,41 @@ export function ReceiptScreen({ navigation, route }: any) {
             <Text style={styles.totalValue}>{order.total_amount.toLocaleString('fr-FR')} FCFA</Text>
           </View>
 
-          {/* Footer */}
-          <View style={styles.receiptDivider} />
-          <Text style={styles.receiptFooter}>Merci pour votre commande !{'\n'}YIP3N3 — MVP Version 1.0</Text>
+          {/* Mode & Tél */}
+          <View style={styles.infoBlock}>
+            <Text style={styles.infoLine}>
+              Mode : <Text style={styles.infoBold}>
+                {order.mode === 'a_emporter' ? 'À emporter' : 'Sur place'}
+              </Text>
+            </Text>
+            {order.client_phone ? (
+              <Text style={styles.infoLine}>
+                Tél : <Text style={styles.infoBold}>{order.client_phone}</Text>
+              </Text>
+            ) : null}
+          </View>
+
+          <Dashes />
+
+          {/* Merci */}
+          <Text style={styles.merci}>Merci et à bientôt !</Text>
         </View>
       </ScrollView>
 
+      {/* Action buttons */}
       <View style={styles.footer}>
-        <Button
-          label="Partager le reçu"
-          onPress={() => navigation.navigate('ShareReceipt', { order })}
-        />
+        <TouchableOpacity style={[styles.actionBtn, styles.actionBtnWhatsapp]} activeOpacity={0.85}>
+          <Ionicons name="logo-whatsapp" size={18} color={Colors.textOnDark} />
+          <Text style={[styles.actionBtnText, { color: Colors.textOnDark }]}>Partager</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.actionBtn} activeOpacity={0.85}>
+          <Ionicons name="document-outline" size={18} color={Colors.textPrimary} />
+          <Text style={styles.actionBtnText}>PDF</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.actionBtn} activeOpacity={0.85}>
+          <Ionicons name="print-outline" size={18} color={Colors.textPrimary} />
+          <Text style={styles.actionBtnText}>Imprimer</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -99,32 +138,78 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.bg },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    padding: 20, paddingTop: 56, backgroundColor: Colors.bgCard,
+    paddingHorizontal: 20, paddingTop: 56, paddingBottom: 14,
+    backgroundColor: Colors.bgCard,
     borderBottomWidth: 1, borderBottomColor: Colors.border,
   },
   headerTitle: { fontSize: 16, fontWeight: '700', color: Colors.textPrimary },
-  scroll: { padding: 20, paddingBottom: 100 },
-  receipt: {
-    backgroundColor: Colors.bgCard, borderRadius: 16, padding: 20,
-    borderWidth: 1, borderColor: Colors.border, gap: 12,
+  scroll: { padding: 20, paddingBottom: 20 },
+
+  ticket: {
+    backgroundColor: Colors.bgCard,
+    borderRadius: 4,
+    paddingHorizontal: 20, paddingVertical: 24,
+    gap: 14,
+    // ticket shadow
+    shadowColor: '#000',
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 3,
   },
-  receiptHeader: { alignItems: 'center', gap: 6, paddingBottom: 4 },
-  receiptLogo: { fontSize: 28, fontWeight: '900', color: Colors.textPrimary },
-  logoOrange: { color: Colors.orange },
-  receiptTagline: { fontSize: 10, color: Colors.textMuted, textAlign: 'center', letterSpacing: 0.5 },
-  receiptDivider: { height: 1, backgroundColor: Colors.border, width: '100%' },
-  refRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  receiptLabel: { fontSize: 13, color: Colors.textSecondary },
-  receiptRef: { fontSize: 18, fontWeight: '800', color: Colors.textPrimary, letterSpacing: 2 },
-  receiptValue: { fontSize: 13, fontWeight: '600', color: Colors.textPrimary },
-  itemsHeader: { flexDirection: 'row', justifyContent: 'space-between' },
-  colLabel: { fontSize: 11, color: Colors.textMuted, textTransform: 'uppercase', letterSpacing: 0.5, flex: 1, textAlign: 'center' },
-  itemRow: { flexDirection: 'row', justifyContent: 'space-between' },
-  itemName: { fontSize: 13, color: Colors.textPrimary, flex: 1 },
-  itemVal: { fontSize: 13, color: Colors.textPrimary, flex: 1, textAlign: 'center' },
-  totalRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 4 },
+
+  logoArea: { alignItems: 'center', paddingBottom: 4 },
+
+  // Dashed divider
+  dashes: { flexDirection: 'row', justifyContent: 'space-between' },
+  dash: { width: 5, height: 1.5, backgroundColor: Colors.border, borderRadius: 1 },
+
+  metaBlock: { gap: 6 },
+  metaRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+  metaLabel: { fontSize: 13, color: Colors.textSecondary },
+  metaRef: { fontSize: 16, fontWeight: '900', color: Colors.textPrimary, letterSpacing: 1 },
+  metaValue: { fontSize: 13, fontWeight: '600', color: Colors.textPrimary },
+
+  // Table
+  tableHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: 2 },
+  colH: {
+    fontSize: 11, fontWeight: '700', color: Colors.textMuted,
+    textTransform: 'uppercase', letterSpacing: 0.5,
+  },
+  colCenter: { width: 40, textAlign: 'center' },
+  colRight: { width: 70, textAlign: 'right' },
+
+  tableRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 3 },
+  colV: { fontSize: 13, color: Colors.textPrimary, fontWeight: '500' },
+
+  // Total
+  totalRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   totalLabel: { fontSize: 16, fontWeight: '800', color: Colors.textPrimary },
-  totalValue: { fontSize: 22, fontWeight: '900', color: Colors.orange },
-  receiptFooter: { fontSize: 12, color: Colors.textMuted, textAlign: 'center', lineHeight: 18 },
-  footer: { padding: 20, paddingBottom: 36, borderTopWidth: 1, borderTopColor: Colors.border },
+  totalValue: { fontSize: 22, fontWeight: '900', color: Colors.accent },
+
+  // Info block
+  infoBlock: { gap: 4 },
+  infoLine: { fontSize: 13, color: Colors.textSecondary },
+  infoBold: { fontWeight: '700', color: Colors.textPrimary },
+
+  merci: {
+    textAlign: 'center', fontSize: 14, fontWeight: '700',
+    color: Colors.textPrimary, paddingTop: 4,
+  },
+
+  // Footer buttons
+  footer: {
+    flexDirection: 'row', gap: 10,
+    padding: 16, paddingBottom: 32,
+    borderTopWidth: 1, borderTopColor: Colors.border,
+    backgroundColor: Colors.bgCard,
+  },
+  actionBtn: {
+    flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6,
+    paddingVertical: 12, borderRadius: 10,
+    borderWidth: 1, borderColor: Colors.border,
+    backgroundColor: Colors.bgCard,
+  },
+  actionBtnWhatsapp: { backgroundColor: '#25D366', borderColor: '#25D366' },
+  actionBtnText: { fontSize: 13, fontWeight: '700', color: Colors.textPrimary },
 });

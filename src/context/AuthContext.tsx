@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
-import { AppUser, mockUser } from '../lib/mockData';
+import { mockUser } from '../lib/mockData';
+import { AppUser } from '../lib/supabase';
 
 interface AuthContextType {
   user: AppUser | null;

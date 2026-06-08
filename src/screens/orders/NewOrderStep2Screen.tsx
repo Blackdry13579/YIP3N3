@@ -28,7 +28,7 @@ export function NewOrderStep2Screen({ navigation, route }: any) {
           <React.Fragment key={s}>
             <View style={[styles.stepCircle, s <= 2 && styles.stepDone, s === 2 && styles.stepActive]}>
               {s < 2
-                ? <Ionicons name="checkmark" size={14} color={Colors.textPrimary} />
+                ? <Ionicons name="checkmark" size={14} color={Colors.textOnDark} />
                 : <Text style={[styles.stepNum, s === 2 && styles.stepNumActive]}>{s}</Text>
               }
             </View>
@@ -43,7 +43,7 @@ export function NewOrderStep2Screen({ navigation, route }: any) {
 
         {/* Prix sélectionné */}
         <View style={styles.selectedPrice}>
-          <Ionicons name="fish-outline" size={20} color={Colors.orange} />
+          <Ionicons name="fish-outline" size={20} color={Colors.primary} />
           <Text style={styles.selectedPriceText}>{price.amount.toLocaleString('fr-FR')} FCFA / poisson</Text>
         </View>
 
@@ -96,19 +96,19 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.bgInput, alignItems: 'center', justifyContent: 'center',
     borderWidth: 1, borderColor: Colors.border,
   },
-  stepDone: { backgroundColor: Colors.greenDark, borderColor: Colors.green },
-  stepActive: { backgroundColor: Colors.orange, borderColor: Colors.orange },
+  stepDone: { backgroundColor: Colors.primary, borderColor: Colors.primary },
+  stepActive: { backgroundColor: Colors.primary, borderColor: Colors.primary },
   stepNum: { fontSize: 13, fontWeight: '700', color: Colors.textMuted },
   stepNumActive: { color: Colors.textPrimary },
   stepLine: { width: 40, height: 2, backgroundColor: Colors.border },
-  stepLineDone: { backgroundColor: Colors.orange },
+  stepLineDone: { backgroundColor: Colors.primary },
   content: { flex: 1, padding: 24 },
   title: { fontSize: 20, fontWeight: '800', color: Colors.textPrimary, marginBottom: 6 },
   subtitle: { fontSize: 14, color: Colors.textSecondary, marginBottom: 24 },
   selectedPrice: {
     flexDirection: 'row', alignItems: 'center', gap: 10,
     backgroundColor: Colors.bgCard, borderRadius: 12, padding: 14,
-    borderWidth: 1, borderColor: Colors.orange + '44', marginBottom: 32,
+    borderWidth: 1, borderColor: Colors.primary, marginBottom: 32,
   },
   selectedPriceText: { fontSize: 16, fontWeight: '600', color: Colors.textPrimary },
   picker: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 32, marginBottom: 32 },
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     alignItems: 'center', borderWidth: 1, borderColor: Colors.border, gap: 4,
   },
   totalLabel: { fontSize: 13, color: Colors.textSecondary },
-  totalAmount: { fontSize: 28, fontWeight: '800', color: Colors.orange },
+  totalAmount: { fontSize: 28, fontWeight: '800', color: Colors.primary },
   totalSub: { fontSize: 12, color: Colors.textMuted },
   footer: { padding: 20, paddingBottom: 36, borderTopWidth: 1, borderTopColor: Colors.border },
 });

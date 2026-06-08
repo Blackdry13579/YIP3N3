@@ -21,7 +21,7 @@ export function OrderSuccessScreen({ navigation, route }: any) {
     <View style={styles.container}>
       <Animated.View style={[styles.iconWrap, { transform: [{ scale: scaleAnim }] }]}>
         <View style={styles.iconCircle}>
-          <Ionicons name="checkmark" size={52} color={Colors.textPrimary} />
+          <Ionicons name="checkmark" size={52} color={Colors.textOnDark} />
         </View>
       </Animated.View>
 
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   },
   refLabel: { fontSize: 12, color: Colors.textMuted, textTransform: 'uppercase', letterSpacing: 1 },
   refCode: { fontSize: 28, fontWeight: '900', color: Colors.textPrimary, letterSpacing: 3 },
-  refTotal: { fontSize: 18, fontWeight: '700', color: Colors.orange },
+  refTotal: { fontSize: 18, fontWeight: '700', color: Colors.primary },
   buttons: { width: '100%', gap: 10, marginTop: 16 },
   btn: {},
 });

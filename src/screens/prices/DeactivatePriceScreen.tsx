@@ -61,13 +61,13 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.bg },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    padding: 20, paddingTop: 56, backgroundColor: Colors.bgCard,
+    padding: 20, paddingTop: 56, backgroundColor: Colors.bg,
     borderBottomWidth: 1, borderBottomColor: Colors.border,
   },
   headerTitle: { fontSize: 16, fontWeight: '700', color: Colors.textPrimary },
   content: { padding: 24, gap: 16 },
   warningCard: {
-    backgroundColor: Colors.bgCard, borderRadius: 16, padding: 24,
+    backgroundColor: Colors.bgCard, borderRadius: 8, padding: 24,
     alignItems: 'center', gap: 12, borderWidth: 1, borderColor: Colors.error + '44',
   },
   warningIcon: {
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   },
   warningTitle: { fontSize: 18, fontWeight: '800', color: Colors.textPrimary },
   priceDisplay: {
-    backgroundColor: Colors.bgInput, borderRadius: 10, paddingHorizontal: 20, paddingVertical: 10,
+    backgroundColor: '#FFF5F5', borderRadius: 8, paddingHorizontal: 20, paddingVertical: 10,
   },
   priceAmount: { fontSize: 24, fontWeight: '900', color: Colors.textSecondary },
   warningDesc: { fontSize: 14, color: Colors.textSecondary, textAlign: 'center', lineHeight: 20 },

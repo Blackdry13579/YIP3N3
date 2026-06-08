@@ -13,6 +13,7 @@ export interface AppUser {
   email: string;
   role: UserRole;
   full_name: string;
+  phone?: string;
 }
 
 export interface FishPrice {
@@ -29,6 +30,7 @@ export interface Order {
   server_id: string;
   server_name?: string;
   client_phone?: string;
+  mode?: 'sur_place' | 'a_emporter';
   status: 'en_cours' | 'terminee';
   total_amount: number;
   created_at: string;

@@ -26,7 +26,7 @@ export function ReportSummaryScreen({ navigation, route }: any) {
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Rapport — {PERIOD_LABELS[period]}</Text>
         <TouchableOpacity>
-          <Ionicons name="download-outline" size={22} color={Colors.orange} />
+          <Ionicons name="download-outline" size={22} color={Colors.primary} />
         </TouchableOpacity>
       </View>
 
@@ -36,10 +36,10 @@ export function ReportSummaryScreen({ navigation, route }: any) {
 
         {/* Summary cards */}
         <View style={styles.statsGrid}>
-          <View style={styles.statCard}>
-            <Ionicons name="cash-outline" size={20} color={Colors.orange} />
-            <Text style={styles.statLabel}>Total ventes</Text>
-            <Text style={styles.statValue}>{total.toLocaleString('fr-FR')} FCFA</Text>
+          <View style={[styles.statCard, styles.statCardPrimary]}>
+            <Ionicons name="cash-outline" size={20} color={Colors.textOnDark} />
+            <Text style={[styles.statLabel, styles.statLabelOnDark]}>Total ventes</Text>
+            <Text style={[styles.statValue, styles.statValueOnDark]}>{total.toLocaleString('fr-FR')} FCFA</Text>
           </View>
           <View style={styles.statCard}>
             <Ionicons name="fish-outline" size={20} color={Colors.green} />
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.bg },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    padding: 20, paddingTop: 56, backgroundColor: Colors.bgCard,
+    padding: 20, paddingTop: 56, backgroundColor: Colors.bg,
     borderBottomWidth: 1, borderBottomColor: Colors.border,
   },
   headerTitle: { fontSize: 15, fontWeight: '700', color: Colors.textPrimary, flex: 1, textAlign: 'center', marginHorizontal: 8 },
@@ -94,16 +94,19 @@ const styles = StyleSheet.create({
   dateLabel: { fontSize: 14, color: Colors.textSecondary, textTransform: 'capitalize' },
   statsGrid: { flexDirection: 'row', gap: 10 },
   statCard: {
-    flex: 1, backgroundColor: Colors.bgCard, borderRadius: 14, padding: 14,
+    flex: 1, backgroundColor: Colors.bgCard, borderRadius: 8, padding: 14,
     borderWidth: 1, borderColor: Colors.border, gap: 6,
   },
+  statCardPrimary: { backgroundColor: Colors.primary, borderColor: Colors.primary },
   statLabel: { fontSize: 11, color: Colors.textMuted, textTransform: 'uppercase', letterSpacing: 0.5 },
-  statValue: { fontSize: 18, fontWeight: '800', color: Colors.orange },
+  statLabelOnDark: { color: '#D7F4E4' },
+  statValue: { fontSize: 18, fontWeight: '800', color: Colors.primary },
+  statValueOnDark: { color: Colors.textOnDark },
   sectionTitle: { fontSize: 15, fontWeight: '700', color: Colors.textPrimary },
   links: { gap: 10 },
   linkCard: {
     flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
-    backgroundColor: Colors.bgCard, borderRadius: 14, padding: 16,
+    backgroundColor: Colors.bgCard, borderRadius: 8, padding: 16,
     borderWidth: 1, borderColor: Colors.border,
   },
   linkTitle: { fontSize: 15, fontWeight: '600', color: Colors.textPrimary, marginBottom: 2 },

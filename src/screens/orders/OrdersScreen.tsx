@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../theme/colors';
 import { OrderCard } from '../../components/OrderCard';
 import { mockOrders } from '../../lib/mockData';
@@ -18,16 +17,20 @@ export function OrdersScreen({ navigation }: any) {
     return statusMatch && o.server_id === user?.id;
   });
 
+  const enCoursCount = mockOrders.filter(o =>
+    user?.role === 'patron' ? o.status === 'en_cours' : o.status === 'en_cours' && o.server_id === user?.id
+  ).length;
+  const termineeCount = mockOrders.filter(o =>
+    user?.role === 'patron' ? o.status === 'terminee' : o.status === 'terminee' && o.server_id === user?.id
+  ).length;
+
   return (
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Commandes</Text>
-        {user?.role === 'serveur' && (
-          <TouchableOpacity style={styles.addBtn} onPress={() => navigation.navigate('NewOrderStep1')}>
-            <Ionicons name="add" size={22} color={Colors.textPrimary} />
-          </TouchableOpacity>
-        )}
+        <Text style={styles.headerTitle}>
+          {tab === 'en_cours' ? 'Commandes en cours' : 'Commandes terminées'}
+        </Text>
       </View>
 
       {/* Tabs */}
@@ -37,8 +40,10 @@ export function OrdersScreen({ navigation }: any) {
           onPress={() => setTab('en_cours')}
         >
           <Text style={[styles.tabText, tab === 'en_cours' && styles.tabTextActive]}>En cours</Text>
-          <View style={[styles.tabBadge, { backgroundColor: tab === 'en_cours' ? Colors.orange : Colors.bgInput }]}>
-            <Text style={styles.tabBadgeText}>{mockOrders.filter(o => o.status === 'en_cours').length}</Text>
+          <View style={[styles.tabBadge, { backgroundColor: tab === 'en_cours' ? Colors.accent : Colors.separator }]}>
+            <Text style={[styles.tabBadgeText, { color: tab === 'en_cours' ? Colors.textOnDark : Colors.textMuted }]}>
+              {enCoursCount}
+            </Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity
@@ -46,8 +51,10 @@ export function OrdersScreen({ navigation }: any) {
           onPress={() => setTab('terminee')}
         >
           <Text style={[styles.tabText, tab === 'terminee' && styles.tabTextActive]}>Terminées</Text>
-          <View style={[styles.tabBadge, { backgroundColor: tab === 'terminee' ? Colors.green : Colors.bgInput }]}>
-            <Text style={styles.tabBadgeText}>{mockOrders.filter(o => o.status === 'terminee').length}</Text>
+          <View style={[styles.tabBadge, { backgroundColor: tab === 'terminee' ? Colors.primary : Colors.separator }]}>
+            <Text style={[styles.tabBadgeText, { color: tab === 'terminee' ? Colors.textOnDark : Colors.textMuted }]}>
+              {termineeCount}
+            </Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -55,7 +62,6 @@ export function OrdersScreen({ navigation }: any) {
       <ScrollView contentContainerStyle={styles.list} showsVerticalScrollIndicator={false}>
         {filtered.length === 0 ? (
           <View style={styles.empty}>
-            <Ionicons name="receipt-outline" size={48} color={Colors.textMuted} />
             <Text style={styles.emptyText}>
               {tab === 'en_cours' ? 'Aucune commande en cours' : 'Aucune commande terminée'}
             </Text>
@@ -77,26 +83,25 @@ export function OrdersScreen({ navigation }: any) {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.bg },
   header: {
-    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    padding: 20, paddingTop: 56, backgroundColor: Colors.bgCard,
+    paddingHorizontal: 20, paddingTop: 56, paddingBottom: 14,
+    backgroundColor: Colors.bgCard,
     borderBottomWidth: 1, borderBottomColor: Colors.border,
   },
-  headerTitle: { fontSize: 20, fontWeight: '800', color: Colors.textPrimary },
-  addBtn: {
-    width: 38, height: 38, borderRadius: 10,
-    backgroundColor: Colors.orange, alignItems: 'center', justifyContent: 'center',
-  },
+  headerTitle: { fontSize: 18, fontWeight: '800', color: Colors.textPrimary },
   tabs: {
     flexDirection: 'row', backgroundColor: Colors.bgCard,
     borderBottomWidth: 1, borderBottomColor: Colors.border,
   },
-  tab: { flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 14, gap: 8 },
-  tabActive: { borderBottomWidth: 2, borderBottomColor: Colors.orange },
+  tab: {
+    flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
+    paddingVertical: 14, gap: 8,
+  },
+  tabActive: { borderBottomWidth: 2, borderBottomColor: Colors.primary },
   tabText: { fontSize: 14, fontWeight: '600', color: Colors.textMuted },
   tabTextActive: { color: Colors.textPrimary },
   tabBadge: { paddingHorizontal: 8, paddingVertical: 2, borderRadius: 10 },
-  tabBadgeText: { fontSize: 12, fontWeight: '700', color: Colors.textPrimary },
+  tabBadgeText: { fontSize: 12, fontWeight: '700' },
   list: { padding: 16, paddingBottom: 80 },
-  empty: { flex: 1, alignItems: 'center', paddingTop: 80, gap: 12 },
+  empty: { alignItems: 'center', paddingTop: 80 },
   emptyText: { color: Colors.textMuted, fontSize: 15 },
 });

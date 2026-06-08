@@ -11,9 +11,12 @@ export function PriceListScreen({ navigation }: any) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
+          <Ionicons name="arrow-back" size={22} color={Colors.textPrimary} />
+        </TouchableOpacity>
         <Text style={styles.headerTitle}>Gestion des prix</Text>
         <TouchableOpacity style={styles.addBtn} onPress={() => navigation.navigate('AddPrice')}>
-          <Ionicons name="add" size={22} color={Colors.textPrimary} />
+          <Ionicons name="add" size={22} color={Colors.textOnDark} />
         </TouchableOpacity>
       </View>
 
@@ -59,18 +62,20 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.bg },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    padding: 20, paddingTop: 56, backgroundColor: Colors.bgCard,
+    paddingHorizontal: 16, paddingTop: 56, paddingBottom: 14,
+    backgroundColor: Colors.bgCard,
     borderBottomWidth: 1, borderBottomColor: Colors.border,
   },
-  headerTitle: { fontSize: 20, fontWeight: '800', color: Colors.textPrimary },
+  backBtn: { padding: 4 },
+  headerTitle: { flex: 1, fontSize: 18, fontWeight: '800', color: Colors.textPrimary, marginLeft: 8 },
   addBtn: {
-    width: 38, height: 38, borderRadius: 10,
-    backgroundColor: Colors.orange, alignItems: 'center', justifyContent: 'center',
+    width: 38, height: 38, borderRadius: 8,
+    backgroundColor: Colors.accent, alignItems: 'center', justifyContent: 'center',
   },
   list: { padding: 16, gap: 10, paddingBottom: 80 },
   hint: { fontSize: 13, color: Colors.textMuted, marginBottom: 6 },
   priceCard: {
-    backgroundColor: Colors.bgCard, borderRadius: 14, padding: 16,
+    backgroundColor: Colors.bgCard, borderRadius: 8, padding: 16,
     flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
     borderWidth: 1, borderColor: Colors.border,
   },
@@ -82,7 +87,7 @@ const styles = StyleSheet.create({
   activeBadgeText: { fontSize: 11, fontWeight: '600' },
   actions: { flexDirection: 'row', gap: 8 },
   actionBtn: {
-    width: 36, height: 36, borderRadius: 10,
+    width: 36, height: 36, borderRadius: 8,
     backgroundColor: Colors.bgInput, alignItems: 'center', justifyContent: 'center',
     borderWidth: 1, borderColor: Colors.border,
   },

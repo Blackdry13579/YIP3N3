@@ -6,9 +6,9 @@ import { Order } from '../../lib/supabase';
 
 const shareOptions = [
   { icon: 'logo-whatsapp' as const, label: 'WhatsApp', color: '#25D366' },
-  { icon: 'mail-outline' as const, label: 'Email', color: Colors.orange },
-  { icon: 'copy-outline' as const, label: 'Copier', color: Colors.green },
+  { icon: 'document-text-outline' as const, label: 'PDF', color: Colors.error },
   { icon: 'print-outline' as const, label: 'Imprimer', color: Colors.textSecondary },
+  { icon: 'ellipsis-horizontal' as const, label: 'Autres', color: Colors.textSecondary },
 ];
 
 export function ShareReceiptScreen({ navigation, route }: any) {
@@ -32,7 +32,7 @@ export function ShareReceiptScreen({ navigation, route }: any) {
         <View style={styles.previewCard}>
           <Text style={styles.previewRef}>{order.reference}</Text>
           <Text style={styles.previewTotal}>{order.total_amount.toLocaleString('fr-FR')} FCFA</Text>
-          <Text style={styles.previewLabel}>Reçu YIP3N3</Text>
+          <Text style={styles.previewLabel}>Reçu YIPƐNƐ</Text>
         </View>
 
         <Text style={styles.sectionTitle}>Choisir comment partager</Text>
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     alignItems: 'center', gap: 6, borderWidth: 1, borderColor: Colors.border,
   },
   previewRef: { fontSize: 22, fontWeight: '900', color: Colors.textPrimary, letterSpacing: 3 },
-  previewTotal: { fontSize: 26, fontWeight: '800', color: Colors.orange },
+  previewTotal: { fontSize: 26, fontWeight: '800', color: Colors.accentDark },
   previewLabel: { fontSize: 12, color: Colors.textMuted, letterSpacing: 1 },
   sectionTitle: { fontSize: 15, fontWeight: '700', color: Colors.textPrimary },
   optionsGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 14, justifyContent: 'center' },

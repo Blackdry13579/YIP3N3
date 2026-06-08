@@ -8,6 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../theme/colors';
 import { Button } from '../../components/Button';
 import { useAuth } from '../../context/AuthContext';
+import { BrandLogo } from '../../components/BrandLogo';
 
 type Props = NativeStackScreenProps<any, 'Login'>;
 
@@ -36,17 +37,11 @@ export function LoginScreen({ navigation }: Props) {
       <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
         {/* Logo */}
         <View style={styles.logoArea}>
-          <View style={styles.logoBox}>
-            <View style={styles.fishSmall} />
-          </View>
-          <Text style={styles.logoText}>
-            YIP<Text style={styles.orange}>3</Text>N<Text style={styles.orange}>3</Text>
-          </Text>
-          <Text style={styles.tagline}>LE GOÛT AUTHENTIQUE{'\n'}DU <Text style={styles.taglineGreen}>POISSON BRAISÉ</Text></Text>
+          <BrandLogo size="medium" />
         </View>
 
-        <Text style={styles.title}>Connexion</Text>
-        <Text style={styles.subtitle}>Connecte-toi à ton compte</Text>
+        <Text style={styles.title}>Bienvenue !</Text>
+        <Text style={styles.subtitle}>Connectez-vous pour continuer</Text>
 
         {/* Email */}
         <View style={styles.inputGroup}>
@@ -88,7 +83,7 @@ export function LoginScreen({ navigation }: Props) {
 
         <Button label="Se connecter" onPress={handleLogin} loading={loading} style={styles.btn} />
 
-        <Text style={styles.hint}>Connexion réservée au personnel YIP3N3</Text>
+        <Text style={styles.hint}>Connexion réservée au personnel YIPƐNƐ</Text>
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -97,20 +92,14 @@ export function LoginScreen({ navigation }: Props) {
 const styles = StyleSheet.create({
   flex: { flex: 1, backgroundColor: Colors.bg },
   container: { flexGrow: 1, padding: 24, justifyContent: 'center' },
-  logoArea: { alignItems: 'center', marginBottom: 36, gap: 8 },
-  logoBox: { width: 64, height: 64, backgroundColor: Colors.bgCard, borderRadius: 18, alignItems: 'center', justifyContent: 'center', marginBottom: 4, borderWidth: 1, borderColor: Colors.border },
-  fishSmall: { width: 36, height: 22, backgroundColor: Colors.greenDark, borderRadius: 18 },
-  logoText: { fontSize: 32, fontWeight: '900', color: Colors.textPrimary },
-  orange: { color: Colors.orange },
-  tagline: { fontSize: 11, color: Colors.textSecondary, textAlign: 'center', lineHeight: 16, letterSpacing: 0.5 },
-  taglineGreen: { color: Colors.green, fontWeight: '700' },
-  title: { fontSize: 24, fontWeight: '800', color: Colors.textPrimary, marginBottom: 4 },
-  subtitle: { fontSize: 14, color: Colors.textSecondary, marginBottom: 28 },
+  logoArea: { alignItems: 'center', marginBottom: 28 },
+  title: { fontSize: 18, fontWeight: '800', color: Colors.textPrimary, marginBottom: 4, textAlign: 'center' },
+  subtitle: { fontSize: 13, color: Colors.textSecondary, marginBottom: 28, textAlign: 'center' },
   inputGroup: { marginBottom: 16 },
   label: { fontSize: 13, color: Colors.textSecondary, marginBottom: 8, fontWeight: '500' },
   inputWrapper: {
     flexDirection: 'row', alignItems: 'center',
-    backgroundColor: Colors.bgInput, borderRadius: 12,
+    backgroundColor: Colors.bgInput, borderRadius: 8,
     borderWidth: 1, borderColor: Colors.border,
     paddingHorizontal: 12, height: 50,
   },

@@ -11,9 +11,9 @@ interface StatCardProps {
   sub?: string;
 }
 
-export function StatCard({ label, value, icon, color = Colors.orange, sub }: StatCardProps) {
+export function StatCard({ label, value, icon, color = Colors.primary, sub }: StatCardProps) {
   return (
-    <View style={[styles.card, { borderLeftColor: color }]}>
+    <View style={[styles.card, { borderColor: color === Colors.primary ? Colors.primary : Colors.border }]}>
       <Ionicons name={icon} size={20} color={color} style={styles.icon} />
       <Text style={styles.label}>{label}</Text>
       <Text style={[styles.value, { color }]}>{value}</Text>
@@ -25,10 +25,9 @@ export function StatCard({ label, value, icon, color = Colors.orange, sub }: Sta
 const styles = StyleSheet.create({
   card: {
     backgroundColor: Colors.bgCard,
-    borderRadius: 12,
+    borderRadius: 8,
     padding: 14,
     flex: 1,
-    borderLeftWidth: 3,
     borderWidth: 1,
     borderColor: Colors.border,
     gap: 4,

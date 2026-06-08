@@ -53,7 +53,7 @@ export function NewOrderStep1Screen({ navigation }: any) {
                   <Text style={styles.priceSub}>Poisson braisé</Text>
                 </View>
               </View>
-              <Ionicons name="fish-outline" size={22} color={selected === p.id ? Colors.orange : Colors.textMuted} />
+              <Ionicons name="checkmark-circle" size={22} color={selected === p.id ? Colors.primary : Colors.textMuted} />
             </TouchableOpacity>
           ))}
         </View>
@@ -88,11 +88,11 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.bgInput, alignItems: 'center', justifyContent: 'center',
     borderWidth: 1, borderColor: Colors.border,
   },
-  stepActive: { backgroundColor: Colors.orange, borderColor: Colors.orange },
+  stepActive: { backgroundColor: Colors.primary, borderColor: Colors.primary },
   stepNum: { fontSize: 13, fontWeight: '700', color: Colors.textMuted },
   stepNumActive: { color: Colors.textPrimary },
   stepLine: { width: 40, height: 2, backgroundColor: Colors.border },
-  stepLineDone: { backgroundColor: Colors.orange },
+  stepLineDone: { backgroundColor: Colors.primary },
   content: { padding: 20 },
   title: { fontSize: 20, fontWeight: '800', color: Colors.textPrimary, marginBottom: 6 },
   subtitle: { fontSize: 14, color: Colors.textSecondary, marginBottom: 24 },
@@ -102,15 +102,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
     borderWidth: 1.5, borderColor: Colors.border,
   },
-  priceCardSelected: { borderColor: Colors.orange, backgroundColor: Colors.orange + '11' },
+  priceCardSelected: { borderColor: Colors.primary, backgroundColor: Colors.primaryLight },
   priceLeft: { flexDirection: 'row', alignItems: 'center', gap: 14 },
   radio: {
     width: 22, height: 22, borderRadius: 11,
     borderWidth: 2, borderColor: Colors.border,
     alignItems: 'center', justifyContent: 'center',
   },
-  radioSelected: { borderColor: Colors.orange },
-  radioDot: { width: 10, height: 10, borderRadius: 5, backgroundColor: Colors.orange },
+  radioSelected: { borderColor: Colors.primary },
+  radioDot: { width: 10, height: 10, borderRadius: 5, backgroundColor: Colors.primary },
   priceAmount: { fontSize: 18, fontWeight: '800', color: Colors.textPrimary },
   priceSub: { fontSize: 12, color: Colors.textMuted, marginTop: 2 },
   footer: { padding: 20, paddingBottom: 36, borderTopWidth: 1, borderTopColor: Colors.border },

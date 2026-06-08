@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../theme/colors';
+import { BrandLogo } from './BrandLogo';
 
 interface HeaderProps {
   title: string;
@@ -18,7 +19,7 @@ export function Header({ title, onBack, rightElement }: HeaderProps) {
         </TouchableOpacity>
       ) : (
         <View style={styles.logoContainer}>
-          <Text style={styles.logoText}>YIP<Text style={styles.logoOrange}>3</Text>N<Text style={styles.logoOrange}>3</Text></Text>
+          <BrandLogo size="small" showTagline={false} />
         </View>
       )}
       <Text style={styles.title} numberOfLines={1}>{title}</Text>
@@ -38,9 +39,7 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.border,
   },
   backBtn: { width: 36, alignItems: 'flex-start' },
-  logoContainer: { width: 36 },
-  logoText: { fontSize: 13, fontWeight: '800', color: Colors.textPrimary },
-  logoOrange: { color: Colors.orange },
+  logoContainer: { width: 36, alignItems: 'flex-start' },
   title: { flex: 1, fontSize: 16, fontWeight: '600', color: Colors.textPrimary, textAlign: 'center' },
   right: { width: 36, alignItems: 'flex-end' },
 });

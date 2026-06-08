@@ -12,10 +12,11 @@ interface ButtonProps {
 }
 
 export function Button({ label, onPress, variant = 'primary', loading, disabled, style }: ButtonProps) {
-  const bg = variant === 'primary' ? Colors.orange
+  const bg = variant === 'primary' ? Colors.primary
     : variant === 'danger' ? Colors.error
-    : variant === 'secondary' ? Colors.bgInput
+    : variant === 'secondary' ? Colors.accent
     : 'transparent';
+  const color = variant === 'ghost' ? Colors.primary : Colors.textOnDark;
 
   return (
     <TouchableOpacity
@@ -25,9 +26,9 @@ export function Button({ label, onPress, variant = 'primary', loading, disabled,
       activeOpacity={0.8}
     >
       {loading ? (
-        <ActivityIndicator color={Colors.textPrimary} size="small" />
+        <ActivityIndicator color={Colors.textOnDark} size="small" />
       ) : (
-        <Text style={[styles.label, variant === 'ghost' && { color: Colors.textSecondary }]}>{label}</Text>
+        <Text style={[styles.label, { color }]}>{label}</Text>
       )}
     </TouchableOpacity>
   );
@@ -35,10 +36,10 @@ export function Button({ label, onPress, variant = 'primary', loading, disabled,
 
 const styles = StyleSheet.create({
   base: {
-    borderRadius: 12,
+    borderRadius: 8,
     paddingVertical: 15,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  label: { fontSize: 15, fontWeight: '700', color: Colors.textPrimary },
+  label: { fontSize: 15, fontWeight: '700' },
 });

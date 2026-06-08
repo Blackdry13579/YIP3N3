@@ -39,7 +39,7 @@ export function ReportPriceRankingScreen({ navigation }: any) {
               <View style={styles.barContainer}>
                 <View style={[styles.bar, {
                   width: `${(item.qty / maxQty) * 100}%`,
-                  backgroundColor: index === 0 ? Colors.orange : index === 1 ? Colors.green : Colors.textSecondary,
+                  backgroundColor: index === 0 ? Colors.accent : index === 1 ? Colors.primary : Colors.textSecondary,
                 }]} />
               </View>
               <Text style={styles.rankRevenue}>{item.revenue.toLocaleString('fr-FR')} FCFA générés</Text>
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.bg },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    padding: 20, paddingTop: 56, backgroundColor: Colors.bgCard,
+    padding: 20, paddingTop: 56, backgroundColor: Colors.bg,
     borderBottomWidth: 1, borderBottomColor: Colors.border,
   },
   headerTitle: { fontSize: 16, fontWeight: '700', color: Colors.textPrimary },
@@ -78,10 +78,10 @@ const styles = StyleSheet.create({
   subtitle: { fontSize: 14, color: Colors.textSecondary, marginBottom: 4 },
   rankCard: {
     flexDirection: 'row', alignItems: 'center', gap: 14,
-    backgroundColor: Colors.bgCard, borderRadius: 14, padding: 16,
+    backgroundColor: Colors.bgCard, borderRadius: 8, padding: 16,
     borderWidth: 1, borderColor: Colors.border,
   },
-  rankCardFirst: { borderColor: Colors.orange + '66', backgroundColor: Colors.orange + '0A' },
+  rankCardFirst: { borderColor: Colors.accent, backgroundColor: Colors.orangeLight },
   medal: { fontSize: 24, width: 32, textAlign: 'center' },
   rankInfo: { flex: 1, gap: 6 },
   rankPrice: { fontSize: 17, fontWeight: '800', color: Colors.textPrimary },
@@ -89,13 +89,13 @@ const styles = StyleSheet.create({
   bar: { height: 6, borderRadius: 3 },
   rankRevenue: { fontSize: 11, color: Colors.textMuted },
   rankCount: { alignItems: 'center' },
-  rankQty: { fontSize: 26, fontWeight: '900', color: Colors.orange },
+  rankQty: { fontSize: 26, fontWeight: '900', color: Colors.accentDark },
   rankQtyLabel: { fontSize: 11, color: Colors.textMuted },
   summaryCard: {
-    backgroundColor: Colors.bgCard, borderRadius: 14, padding: 20,
+    backgroundColor: Colors.bgCard, borderRadius: 8, padding: 20,
     alignItems: 'center', borderWidth: 1, borderColor: Colors.border, gap: 6, marginTop: 8,
   },
   summaryTitle: { fontSize: 13, color: Colors.textMuted, textTransform: 'uppercase', letterSpacing: 1 },
-  summaryValue: { fontSize: 28, fontWeight: '900', color: Colors.orange },
+  summaryValue: { fontSize: 28, fontWeight: '900', color: Colors.primary },
   summaryLabel: { fontSize: 13, color: Colors.textSecondary },
 });

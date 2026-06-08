@@ -51,7 +51,7 @@ export function NewOrderStep3Screen({ navigation, route }: any) {
           <React.Fragment key={s}>
             <View style={[styles.stepCircle, s < 3 && styles.stepDone, s === 3 && styles.stepActive]}>
               {s < 3
-                ? <Ionicons name="checkmark" size={14} color={Colors.textPrimary} />
+                ? <Ionicons name="checkmark" size={14} color={Colors.textOnDark} />
                 : <Text style={styles.stepNumActive}>{s}</Text>
               }
             </View>
@@ -125,10 +125,10 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.bgInput, alignItems: 'center', justifyContent: 'center',
     borderWidth: 1, borderColor: Colors.border,
   },
-  stepDone: { backgroundColor: Colors.greenDark, borderColor: Colors.green },
-  stepActive: { backgroundColor: Colors.orange, borderColor: Colors.orange },
+  stepDone: { backgroundColor: Colors.primary, borderColor: Colors.primary },
+  stepActive: { backgroundColor: Colors.primary, borderColor: Colors.primary },
   stepNumActive: { fontSize: 13, fontWeight: '700', color: Colors.textPrimary },
-  stepLineDone: { width: 40, height: 2, backgroundColor: Colors.orange },
+  stepLineDone: { width: 40, height: 2, backgroundColor: Colors.primary },
   content: { padding: 24 },
   title: { fontSize: 20, fontWeight: '800', color: Colors.textPrimary, marginBottom: 6 },
   subtitle: { fontSize: 14, color: Colors.textSecondary, marginBottom: 20 },
@@ -150,6 +150,6 @@ const styles = StyleSheet.create({
   resumeValue: { fontSize: 14, fontWeight: '600', color: Colors.textPrimary },
   divider: { height: 1, backgroundColor: Colors.border },
   totalLabel: { fontSize: 15, fontWeight: '700', color: Colors.textPrimary },
-  totalValue: { fontSize: 18, fontWeight: '800', color: Colors.orange },
+  totalValue: { fontSize: 18, fontWeight: '800', color: Colors.primary },
   footer: { padding: 20, paddingBottom: 36, borderTopWidth: 1, borderTopColor: Colors.border },
 });
