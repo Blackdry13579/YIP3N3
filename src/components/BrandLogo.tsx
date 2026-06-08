@@ -8,7 +8,7 @@ interface BrandLogoProps {
   showTagline?: boolean;
 }
 
-const LOGO = require('../../logo_poisson.png');
+const LOGO = require('../../assets/logo_poisson.png');
 
 export function BrandLogo({ size = 'medium', light = false, showTagline = true }: BrandLogoProps) {
   const imageSize = size === 'large' ? 132 : size === 'medium' ? 92 : 34;

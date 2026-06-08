@@ -8,7 +8,7 @@ import { useTheme } from '../../context/ThemeContext';
 import { useAuth } from '../../context/AuthContext';
 import { ColorPalette } from '../../theme/colors';
 
-const LOGO = require('../../../logo_poisson.png');
+const LOGO = require('../../../assets/logo_poisson.png');
 const PANEL_W = 260;
 
 function SettingRow({ label, iconName, onPress, right, c }: {

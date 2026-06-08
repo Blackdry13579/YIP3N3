@@ -9,7 +9,7 @@ import { useAuth } from '../../context/AuthContext';
 import { mockOrders } from '../../lib/mockData';
 import { ColorPalette } from '../../theme/colors';
 
-const LOGO = require('../../../logo_poisson.png');
+const LOGO = require('../../../assets/logo_poisson.png');
 const SPARK = [8, 14, 10, 20, 16, 28, 22, 36, 30, 48, 40, 60];
 const SPARK_MAX = Math.max(...SPARK);
 const PANEL_W = 260;
