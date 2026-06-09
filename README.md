@@ -1,6 +1,6 @@
 # YIP3N3 — MVP Application Mobile
 
-> Le goût authentique du poisson braisé 🐟🔥
+> Le goût authentique du poisson braisé de Koudougou 🐟🔥
 
 Application mobile de gestion des commandes pour le restaurant YIP3N3. Permet la prise de commande, le suivi en temps réel, la gestion des prix et la génération de rapports de vente.
 
